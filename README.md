@@ -1,1 +1,3 @@
-# SimpleGame
+## Simple Game
+
+Snake game
