@@ -8,8 +8,9 @@ public class SnakeGame extends Canvas implements Runnable {
   private int AppleX, AppleY;
 
   private Thread thread;
-  int fps = 5;
-  private boolean isRunning = false;
+  int fps = 20;
+  private boolean isRunning;
+
 
   private BufferStrategy bs;
 
@@ -19,6 +20,7 @@ public class SnakeGame extends Canvas implements Runnable {
     frame.add(this);
     frame.pack();
 
+    isRunning = false;
 
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setVisible(true);
@@ -29,7 +31,7 @@ public class SnakeGame extends Canvas implements Runnable {
   }
 
   public void update() {
-    AppleX += 12.5;
+    AppleX += 4;
   }
 
   public void draw() {
@@ -59,8 +61,8 @@ public class SnakeGame extends Canvas implements Runnable {
 
 
   public static void main(String [] args) {
-  SnakeGame Snake = new SnakeGame();
-  Snake.start();
+    SnakeGame Snake = new SnakeGame();
+    Snake.start();
   }
 
   public synchronized void start() {
@@ -78,11 +80,6 @@ public class SnakeGame extends Canvas implements Runnable {
     }
   }
 
-
-
-
-
-
   @Override
   public void run() {
     double deltaT = 1000.0/fps;
@@ -98,4 +95,6 @@ public class SnakeGame extends Canvas implements Runnable {
     }
     stop();
   }
+
+
 }
