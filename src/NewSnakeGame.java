@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 
 
@@ -7,6 +9,7 @@ public class NewSnakeGame extends Canvas implements Runnable {
   private int width = 1000;
   private int height = 700;
   private int SnakeX, SnakeY;
+  private int SnakeVX, SnakeVY;
   private int AppleX, AppleY;
 
   private Thread thread;
@@ -23,6 +26,7 @@ public class NewSnakeGame extends Canvas implements Runnable {
     frame.pack();
 
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.addKeyListener(new KL());
     frame.setVisible(true);
 
     Running = false;
@@ -31,6 +35,8 @@ public class NewSnakeGame extends Canvas implements Runnable {
     SnakeY = 300;
     AppleX = 800;
     AppleY = 300;
+    SnakeVX = 0;
+    SnakeVY = 0;
   }
 
   public void draw() {
@@ -62,7 +68,8 @@ public class NewSnakeGame extends Canvas implements Runnable {
   }
 
   public void update() {
-    SnakeX += 5;
+    SnakeX += SnakeVX;
+    SnakeY += SnakeVY;
   }
 
   public static void main(String [] args) {
@@ -89,8 +96,6 @@ public class NewSnakeGame extends Canvas implements Runnable {
     }
   }
 
-
-
   public static void sleep(long millis) {
     try {
       Thread.sleep(millis);
@@ -98,4 +103,40 @@ public class NewSnakeGame extends Canvas implements Runnable {
       e.printStackTrace();
     }
   }
+
+  private class KL implements KeyListener {
+
+    @Override
+    public void keyTyped(KeyEvent keyEvent) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent keyEvent) {
+        if (keyEvent.getKeyChar() == 'a') {
+          SnakeVY = 0;
+          SnakeVX = -5;
+        }
+
+        if (keyEvent.getKeyChar() == 'd') {
+          SnakeVY = 0;
+          SnakeVX = 5;
+        }
+        if (keyEvent.getKeyChar() == 'w') {
+          SnakeVX = 0;
+          SnakeVY = -5;
+        }
+        if (keyEvent.getKeyChar() == 's') {
+          SnakeVX = 0;
+          SnakeVY = +5;
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent keyEvent) {
+
+    }
+  }
+
+
 }
